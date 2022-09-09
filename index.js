@@ -1,4 +1,35 @@
-
+var count1 = 0;
+var music_list = ['songs/Legend.mp3','songs/Blinding Lights.mp3','songs/295.mp3','songs/Unforgettable.mp3',
+'songs/Sidhu Son.mp3','songs/Bewafa.mp3','songs/Starboy.mp3','songs/One Dance.mp3',
+'songs/Bad Guy.mp3','songs/Brown Munde.mp3','songs/Proper Patola.mp3','songs/440 Volt.mp3',
+'songs/Mask Off.mp3','songs/Less than zero.mp3'];
+var music_playlist = []
+var ID = 0
+function playthesong(id){
+    if (ID == id){
+            music_playlist[0].pause();
+            music_playlist.shift(0);
+            ID = 0;
+            return;
+        }
+    if (ID == 0){
+        const music = new Audio(music_list[id-1]);
+        music_playlist.unshift(music);
+        console.log(music_list[id-1]);
+        music.play();
+        music.loop =true;
+        ID = id;
+    }else{
+        music_playlist[0].pause();
+        music_playlist.shift(0);
+        const music = new Audio(music_list[id-1]);
+        music_playlist.unshift(music);
+        console.log(music_list[id-1]);
+        music.play();
+        music.loop =true;
+        ID = id;
+    }
+}
 
 
 
