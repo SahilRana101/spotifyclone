@@ -1,6 +1,19 @@
-const music = new Audio('legend.mp3');
-
-
+var count = 0;
+var count1 = 0;
+function playthesong(){
+    console.log("shdsd");
+    if (count1 == 0){const music = new Audio('songs/Blinding Lights.mp3');
+    count1 = 1;
+}
+    if (count == 0){
+        music.play();
+        music.loop =true;
+        count = 1;
+    }else{
+        music.pause();
+        count = 0;
+    }
+}
 
 const songs = [
     {
@@ -85,20 +98,21 @@ const songs = [
         poster:"images/maskoff.jpg"
     },
     {
-        id:'15',
+        id:'14',
         songName:` Less than zero <br>
         <div class="subtitle">The Weeknd</div>`,
         poster:"images/zero.jpg"
     }
     
 ]
+
 Array.from(document.getElementsByClassName('songItem')).forEach((element,i) =>{
     element.getElementsByTagName('img')[0].src = songs[i].poster;
     element.getElementsByTagName('h5')[0].innerHTML = songs[i].songName;
 
 })
 
-
+/*
 let play = document.getElementById('play');
 
 play.addEventListener('click', ()=>{
@@ -113,4 +127,4 @@ play.addEventListener('click', ()=>{
     }
 })
 
-
+*/
