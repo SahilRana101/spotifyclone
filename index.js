@@ -2,7 +2,7 @@
 
 
 
-const songs = [
+/*const songs = [
     {
         id:'1',
         songName:` legend <br>
@@ -85,7 +85,7 @@ const songs = [
         poster:"images/maskoff.jpg"
     },
     {
-        id:'15',
+        id:'14',
         songName:` Less than zero <br>
         <div class="subtitle">The Weeknd</div>`,
         poster:"images/zero.jpg"
@@ -96,7 +96,7 @@ const songs = [
     element.getElementsByTagName('img')[0].src = songs[i].poster;
     element.getElementsByTagName('h5')[0].innerHTML = songs[i].songName;
 
-})
+})*/
 
 /*
 let play = document.getElementById('play');
