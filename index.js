@@ -9,6 +9,10 @@ function playthesong(id){
     if (ID == id){
             music_playlist[0].pause();
             music_playlist.shift(0);
+            document.getElementById(id).className = "bi playlistPlay bi-play-circle-fill";
+            if (id == 2){
+            document.getElementById(15).innerHTML = "Play";
+        }
             ID = 0;
             return;
         }
@@ -18,6 +22,10 @@ function playthesong(id){
         console.log(music_list[id-1]);
         music.play();
         music.loop =true;
+        document.getElementById(id).className = "bi playlistPlay bi-pause-circle-fill";
+        if (id == 2){
+            document.getElementById(15).innerHTML = "Pause";
+        }
         ID = id;
     }else{
         music_playlist[0].pause();
@@ -27,10 +35,17 @@ function playthesong(id){
         console.log(music_list[id-1]);
         music.play();
         music.loop =true;
+        document.getElementById(ID).className = "bi playlistPlay bi-play-circle-fill";
+        document.getElementById(id).className = "bi playlistPlay bi-pause-circle-fill";
+        if (ID == 2){
+            document.getElementById(15).innerHTML = "Play";
+        }
+        if (id == 2){
+            document.getElementById(15).innerHTML = "Pause";
+        }
         ID = id;
     }
 }
-
 
 
 /*const songs = [
