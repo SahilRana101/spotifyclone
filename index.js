@@ -9,14 +9,43 @@ var music_list = ['songs/Legend.mp3','songs/Blinding Lights.mp3','songs/295.mp3'
 
 
 function bar_play_button(){
-    return;
+    if (music_playlist.length == 0){
+        new_play(1);
+    }
+    else{
+        if (isPlaying(music_playlist[0])){
+            pause(ID);
+            document.getElementById("play").className = "bi bi-play-fill";
+        }
+        else{
+            music_playlist[0].play();
+            document.getElementById(ID).className = "bi playlistPlay bi-pause-circle-fill";
+            document.getElementById("play").className = "bi bi-pause-fill";
+            if (ID == 2){
+            document.getElementById(15).innerHTML = "Pause";
+    }
+        }
+    }
 }
 
 
 function playthesong(id){
     // Play buttons function to play and pause songs.
     if (ID == id){
-        pause(id);
+        if (count1 == 0){
+            pause(id);
+            count1 = 1
+            console.log("1  "+id + "  " + ID + "  " + music_list[id-1]);
+        }
+        else{
+            music_playlist[0].play();
+            document.getElementById(ID).className = "bi playlistPlay bi-pause-circle-fill";
+            document.getElementById("play").className = "bi bi-pause-fill";
+            if (ID == 2){
+            document.getElementById(15).innerHTML = "Pause";
+            }
+            count1 = 0;
+        }
         return;
     }
     if (ID == 0){
@@ -25,18 +54,19 @@ function playthesong(id){
     else{
         pause_and_play(id, ID);
     }
+    console.log("2  " + id + "  " + ID + "  " + music_list[id-1]);
 }
 
 
 function pause(id){
     // pause function is to pause the currently playing song.
     music_playlist[0].pause();
-    music_playlist.shift(0);
+    document.getElementById("play").className = "bi bi-play-fill";
     document.getElementById(id).className = "bi playlistPlay bi-play-circle-fill";
     if (id == 2){
             document.getElementById(15).innerHTML = "Play";
     }
-    ID = 0;
+    ID = id;
 }
 
 
@@ -48,6 +78,7 @@ function new_play(id){
     music.play();
     music.loop =true;
     document.getElementById(id).className = "bi playlistPlay bi-pause-circle-fill";
+    document.getElementById("play").className = "bi bi-pause-fill";
     if (id == 2){
         document.getElementById(15).innerHTML = "Pause";
     }
@@ -57,11 +88,13 @@ function new_play(id){
 
 function pause_and_play(id){
     music_playlist[0].pause();
+    document.getElementById("play").className = "bi bi-play-fill";
     music_playlist.shift(0);
     const music = new Audio(music_list[id-1]);
     music_playlist.unshift(music);
     console.log(music_list[id-1]);
     music.play();
+    document.getElementById("play").className = "bi bi-pause-fill";
     music.loop =true;
     document.getElementById(ID).className = "bi playlistPlay bi-play-circle-fill";
     document.getElementById(id).className = "bi playlistPlay bi-pause-circle-fill";
@@ -73,6 +106,9 @@ function pause_and_play(id){
     }
     ID = id;
 }
+
+
+function isPlaying(song) { return !song.paused; }
 
 
 /*const songs = [
