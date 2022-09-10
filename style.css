@@ -217,7 +217,7 @@ header .play h5 .subtitle{
    font-size: 11px;
    color: #4c5262;
 }
- header .play h5 .icon{
+ header .play  .icon{
     font-size: 20px;
     color: #fff;
     margin: 0px 20px 0px 40px;
@@ -225,9 +225,14 @@ header .play h5 .subtitle{
 header .play h5 .icon .bi{
     cursor: pointer;
     outline: none;
+    color: #fff;
+    background: #fff;
+    background-color: #fff;
 }
 header .play h5 .icon .bi:nth-child(2){
     border: 1px solid rgb(105, 105, 170, .1);
+    color: #fff;
+    background: #fff;
     border-radius: 50%;
     padding: 1px 3px 0px 6px;
     margin:0px 5px;
