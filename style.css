@@ -511,6 +511,7 @@ header .song_side .popular_song .h4 .bi{
     color: #a4a8b4;
     cursor: pointer;
     transition: .3s linear;
+    
 }    
 header .song_side .popular_song .h4 .bi:hover{
     color: #fff;
@@ -551,15 +552,16 @@ header .song_side .popular_song .pop_song li .img_play img{
     height: 100%;
     
 }    
-header .song_side .popular_song .pop_song li .img_play .b1{
+header .song_side .popular_song .pop_song li .img_play .bi{
     position: absolute;
     font-size: 20px;
     cursor: pointer;
     transition: .3s linear;
     opacity: 0;
+    
   
 }   
-header .song_side .popular_song .pop_song li .img_play:hover .b1{
+header .song_side .popular_song .pop_song li:hover .img_play .bi{
     opacity: 1;
     
 } 
