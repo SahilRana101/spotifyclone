@@ -620,7 +620,7 @@ header .song_side .popular_artists .item li img{
     position: absolute;
     
 
-}
+}                                                                                               
 .ABC .title{
     position: relative;
     padding: 3px;
@@ -638,4 +638,4 @@ header .song_side .popular_artists .item li img{
 .ABC .ims{
     position: relative;
     top: 2em;
-}
+} 
