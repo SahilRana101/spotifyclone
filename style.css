@@ -213,7 +213,7 @@ header .play h5{
    color: #fff;
    line-height: 17px;
 }
-header .play h5 .subtitle{
+.subtitle{
    font-size: 11px;
    color: #4c5262;
 }
@@ -620,14 +620,4 @@ header .song_side .popular_artists .item li img{
     position: absolute;
     
 
-}                                                                                               
-                                                                                       
- 
-
-
-
-
-
-
-
-
+}
