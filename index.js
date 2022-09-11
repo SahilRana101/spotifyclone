@@ -8,10 +8,13 @@ var music_list = ['songs/Legend.mp3','songs/Blinding Lights.mp3','songs/295.mp3'
 'songs/Mask Off.mp3','songs/Less than zero.mp3'];
 
 
-function bar_play_button(){
+function barPlayButton(){
+    // bar_play_button to pause and play currently playing song.
+
     if (music_playlist.length == 0){
-        new_play(1);
+        newPlay(1);
     }
+
     else{
         if (isPlaying(music_playlist[0])){
             pause(ID);
@@ -22,15 +25,16 @@ function bar_play_button(){
             document.getElementById(ID).className = "bi playlistPlay bi-pause-circle-fill";
             document.getElementById("play").className = "bi bi-pause-fill";
             if (ID == 2){
-            document.getElementById(15).innerHTML = "Pause";
-    }
+                document.getElementById(15).innerHTML = "Pause";
+            }
         }
     }
 }
 
 
-function playthesong(id){
-    // Play buttons function to play and pause songs.
+function playTheSong(id){
+    // playthesong - Play buttons' function to play and pause songs.
+
     if (ID == id){
         if (count1 == 0){
             pause(id);
@@ -42,51 +46,55 @@ function playthesong(id){
             document.getElementById(ID).className = "bi playlistPlay bi-pause-circle-fill";
             document.getElementById("play").className = "bi bi-pause-fill";
             if (ID == 2){
-            document.getElementById(15).innerHTML = "Pause";
+                document.getElementById(15).innerHTML = "Pause";
             }
+
             count1 = 0;
         }
+        changeImageTitleSubtitle(id);
         return;
     }
-    if (ID == 0){
-        new_play(id);
-    }
-    else{
-        pause_and_play(id, ID);
-    }
+
+    if (ID == 0) newPlay(id);
+    else pauseAndPlay(id, ID);
+
     console.log("2  " + id + "  " + ID + "  " + music_list[id-1]);
 }
 
 
 function pause(id){
-    // pause function is to pause the currently playing song.
+    // pause function is to pause the currently playing song, if any.
+
     music_playlist[0].pause();
     document.getElementById("play").className = "bi bi-play-fill";
     document.getElementById(id).className = "bi playlistPlay bi-play-circle-fill";
-    if (id == 2){
-            document.getElementById(15).innerHTML = "Play";
-    }
+
+    if (id == 2) document.getElementById(15).innerHTML = "Play";
+
     ID = id;
 }
 
 
-function new_play(id){
+function newPlay(id){
     // new_play function will play the song.
+
     const music = new Audio(music_list[id-1]);
     music_playlist.unshift(music);
     console.log(music_list[id-1]);
     music.play();
     music.loop =true;
+
     document.getElementById(id).className = "bi playlistPlay bi-pause-circle-fill";
     document.getElementById("play").className = "bi bi-pause-fill";
-    if (id == 2){
-        document.getElementById(15).innerHTML = "Pause";
-    }
+    if (id == 2) document.getElementById(15).innerHTML = "Pause";
+    changeImageTitleSubtitle(id);
     ID = id;
 }
 
 
-function pause_and_play(id){
+function pauseAndPlay(id){
+    // pause_and_play is to pause currently playing song, if any and play the other requested song.
+
     music_playlist[0].pause();
     document.getElementById("play").className = "bi bi-play-fill";
     music_playlist.shift(0);
@@ -94,24 +102,23 @@ function pause_and_play(id){
     music_playlist.unshift(music);
     console.log(music_list[id-1]);
     music.play();
-    document.getElementById("play").className = "bi bi-pause-fill";
     music.loop =true;
+
+    document.getElementById("play").className = "bi bi-pause-fill";
     document.getElementById(ID).className = "bi playlistPlay bi-play-circle-fill";
     document.getElementById(id).className = "bi playlistPlay bi-pause-circle-fill";
-    if (ID == 2){
-        document.getElementById(15).innerHTML = "Play";
-    }
-    if (id == 2){
-        document.getElementById(15).innerHTML = "Pause";
-    }
+
+    if (ID == 2) document.getElementById(15).innerHTML = "Play";
+    if (id == 2) document.getElementById(15).innerHTML = "Pause";
+    changeImageTitleSubtitle(id);
     ID = id;
 }
 
 
-function play_next_song(){
+function playNextSong(){
     if (ID == 0){
         ID = 1;
-    }else if (ID == 15){
+    }else if (ID == 14){
         pause(ID);
         ID = 1;
         music_playlist.shift(0);
@@ -120,23 +127,30 @@ function play_next_song(){
         ID++;
         music_playlist.shift(0);
     }
-    new_play(ID);
+
+    newPlay(ID);
 }
 
 
-function play_previous_song(){
+function playPreviousSong(){
     if (ID == 0){
-        ID = 15;
+        ID = 14;
     }else if (ID == 1){
         pause(ID);
-        ID = 15;
+        ID = 14;
         music_playlist.shift(0);
     }else {
         pause(ID);
         ID--;
         music_playlist.shift(0);
     }
-    new_play(ID);
+
+    newPlay(ID);
+}
+
+
+function changeImageTitleSubtitle(){
+
 }
 
 
