@@ -108,6 +108,38 @@ function pause_and_play(id){
 }
 
 
+function play_next_song(){
+    if (ID == 0){
+        ID = 1;
+    }else if (ID == 15){
+        pause(ID);
+        ID = 1;
+        music_playlist.shift(0);
+    }else {
+        pause(ID);
+        ID++;
+        music_playlist.shift(0);
+    }
+    new_play(ID);
+}
+
+
+function play_previous_song(){
+    if (ID == 0){
+        ID = 15;
+    }else if (ID == 1){
+        pause(ID);
+        ID = 15;
+        music_playlist.shift(0);
+    }else {
+        pause(ID);
+        ID--;
+        music_playlist.shift(0);
+    }
+    new_play(ID);
+}
+
+
 function isPlaying(song) { return !song.paused; }
 
 
