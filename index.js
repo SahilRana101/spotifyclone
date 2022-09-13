@@ -57,18 +57,16 @@ function playTheSong(id){
             music_playlist[0].play();
             document.getElementById(ID).className = "bi playlistPlay bi-pause-circle-fill";
             document.getElementById("play").className = "bi bi-pause-fill";
-            if (ID == 2){
-                document.getElementById(15).innerHTML = "Pause";
-            }
 
+            if (ID == 2) document.getElementById(15).innerHTML = "Pause";
             count1 = 0;
         }
+        
         changeImageTitleSubtitle(id);
         return;
     }
 
-    if (ID == 0) newPlay(id);
-    else pauseAndPlay(id, ID);
+    ID == 0 ? newPlay(id) : pauseAndPlay(id, ID);
 
     console.log("2  " + id + "  " + ID + "  " + music_list[id][2]);
 }
@@ -169,3 +167,10 @@ function changeImageTitleSubtitle(song_id){
 
 
 function isPlaying(song) { return !song.paused; }
+
+
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+        barPlayButton();
+    }
+}
