@@ -1,42 +1,58 @@
 var count1 = 0;
 var music_playlist = []
 var ID = 0
+var i = 0;
+
+
+let seek_slider = document.querySelector(".seek_slider");
+let volume_slider = document.querySelector(".volume_slider");
+let curr_time = document.querySelector(".current-time");
+let total_duration = document.querySelector(".total-duration");
+let curr_track = document.createElement('audio');
+let player = document.getElementById("music");
+let track_index = 0;
+let updateTimer;
+toggle(player);
 
 var music_list = {
-    1:["Legend","Sidhu Moosewala", 'songs/Legend.mp3', "images/1.jpeg"],
-    2:["Blinding Lights","The Weeknd", 'songs/Blinding Lights.mp3', "images/weekndimg.jpeg"],
-    3:["295","Sidhu Moosewala", 'songs/295.mp3', "images/295.jpeg"],
-    4:["Unforgettable","Diljit Dosanjh", 'songs/Unforgettable.mp3', "images/unforgettable.jpeg"],
-    5:["Sidhu Son","Sidhu Moosewala", 'songs/Sidhu Son.mp3', "images/sidhuson.jpeg"],
-    6:["Bewafa","Imran Khan", 'songs/Bewafa.mp3', "images/bewafa.jpeg"],
-    7:["Starboy","The Weeknd", 'songs/Starboy.mp3', "images/starboy.jpeg"],
-    8:["One Dance","Drake", 'songs/One Dance.mp3', "images/onedance.jpeg"],
-    9:["Bad Guy","Billie Eilish", 'songs/Bad Guy.mp3', "images/badguy.jpeg"],
-    10:["Brown Munde","Ap Dhillon", 'songs/Brown Munde.mp3', "images/brownmunde.jpeg"],
-    11:["Proper Patola","Diljit Dosanjh", 'songs/Proper Patola.mp3', "images/proper.jpeg"],
-    12:["440 Volt","Diljit Dosanjh", 'songs/440 Volt.mp3', "images/440.jpeg"],
-    13:["Mask Off","Future", 'songs/Mask Off.mp3', "images/maskoff.jpeg"],
-    14:["Less than zero","The Weeknd", 'songs/Less than zero.mp3', "images/zero.jpeg"]
+    1: ["Legend", "Sidhu Moosewala", 'songs/Legend.mp3', "images/1.jpeg"],
+    2: ["Blinding Lights", "The Weeknd", 'songs/Blinding Lights.mp3', "images/weekndimg.jpg"],
+    3: ["295", "Sidhu Moosewala", 'songs/295.mp3', "images/295.jpg"],
+    4: ["Unforgettable", "Diljit Dosanjh", 'songs/Unforgettable.mp3', "images/unforgettable.jpg"],
+    5: ["Sidhu Son", "Sidhu Moosewala", 'songs/Sidhu Son.mp3', "images/sidhuson.jpg"],
+    6: ["Bewafa", "Imran Khan", 'songs/Bewafa.mp3', "images/bewafa.jpg"],
+    7: ["Starboy", "The Weeknd", 'songs/Starboy.mp3', "images/starboy.jpg"],
+    8: ["One Dance", "Drake", 'songs/One Dance.mp3', "images/onedance.jpg"],
+    9: ["Bad Guy", "Billie Eilish", 'songs/Bad Guy.mp3', "images/badguy.jpg"],
+    10: ["Brown Munde", "Ap Dhillon", 'songs/Brown Munde.mp3', "images/brownmunde.jpg"],
+    11: ["Proper Patola", "Diljit Dosanjh", 'songs/Proper Patola.mp3', "images/proper.jpg"],
+    12: ["440 Volt", "Diljit Dosanjh", 'songs/440 Volt.mp3', "images/440.jpg"],
+    13: ["Mask Off", "Future", 'songs/Mask Off.mp3', "images/maskoff.jpg"],
+    14: ["Less than zero", "The Weeknd", 'songs/Less than zero.mp3', "images/zero.jpg"]
 }
 
 
-function barPlayButton(){
+function barPlayButton() {
     // bar_play_button to pause and play currently playing song.
 
-    if (music_playlist.length == 0){
+    if (ID == 0) {
         newPlay(1);
+        toggle(player);
     }
 
-    else{
-        if (isPlaying(music_playlist[0])){
+    else {
+        if (isPlaying(curr_track)) {
             pause(ID);
+            toggle(player);
             document.getElementById("play").className = "bi bi-play-fill";
+            // incomplete
         }
-        else{
-            music_playlist[0].play();
+        else {
+            curr_track.play();
+            toggle(player);
             document.getElementById(ID).className = "bi playlistPlay bi-pause-circle-fill";
             document.getElementById("play").className = "bi bi-pause-fill";
-            if (ID == 2){
+            if (ID == 2) {
                 document.getElementById(15).innerHTML = "Pause";
             }
         }
@@ -44,38 +60,45 @@ function barPlayButton(){
 }
 
 
-function playTheSong(id){
+function playTheSong(id) {
     // playthesong - Play buttons' function to play and pause songs.
 
-    if (ID == id){
-        if (count1 == 0){
+    if (ID == id) {
+        if (count1 == 0) {
             pause(id);
-            count1 = 1
-            console.log("1  "+id + "  " + ID + "  " + music_list[id-1]);
+            toggle(player);
+            console.log("yes player1");
+            count1 = 1;
         }
-        else{
-            music_playlist[0].play();
+        else {
+            curr_track.play();
+            toggle(player);
+            console.log("yes player2");
             document.getElementById(ID).className = "bi playlistPlay bi-pause-circle-fill";
             document.getElementById("play").className = "bi bi-pause-fill";
 
             if (ID == 2) document.getElementById(15).innerHTML = "Pause";
             count1 = 0;
         }
-        
+
         changeImageTitleSubtitle(id);
         return;
     }
-
-    ID == 0 ? newPlay(id) : pauseAndPlay(id, ID);
-
-    console.log("2  " + id + "  " + ID + "  " + music_list[id][2]);
+    else {
+        if (ID == 0 || !isPlaying(curr_track)) {
+            toggle(player);
+            newPlay(id);
+            count1 = 0;
+        }
+        else pauseAndPlay(id);
+    }
 }
 
-
-function pause(id){
+function pause(id) {
     // pause function is to pause the currently playing song, if any.
 
-    music_playlist[0].pause();
+    curr_track.pause();
+    count1 = 1;
     document.getElementById("play").className = "bi bi-play-fill";
     document.getElementById(id).className = "bi playlistPlay bi-play-circle-fill";
 
@@ -85,15 +108,14 @@ function pause(id){
 }
 
 
-function newPlay(id){
+function newPlay(id) {
     // new_play function will play the song.
 
-    const music = new Audio(music_list[id][2]);
-    music_playlist.unshift(music);
     console.log(music_list[id][2]);
-    music.play();
-    music.loop =true;
-
+    curr_track.src = music_list[id][2];
+    curr_track.load();
+    curr_track.play();
+    updateTimer = setInterval(seekUpdate, 1000);
     document.getElementById(id).className = "bi playlistPlay bi-pause-circle-fill";
     document.getElementById("play").className = "bi bi-pause-fill";
     if (id == 2) document.getElementById(15).innerHTML = "Pause";
@@ -102,17 +124,18 @@ function newPlay(id){
 }
 
 
-function pauseAndPlay(id){
+function pauseAndPlay(id) {
     // pause_and_play is to pause currently playing song, if any and play the other requested song.
 
-    music_playlist[0].pause();
+    clearInterval(updateTimer);
+    resetValues();
+    curr_track.pause();
     document.getElementById("play").className = "bi bi-play-fill";
-    music_playlist.shift(0);
-    const music = new Audio(music_list[id][2]);
-    music_playlist.unshift(music);
     console.log(music_list[id][2]);
-    music.play();
-    music.loop =true;
+    curr_track.src = music_list[id][2];
+    curr_track.load();
+    curr_track.play();
+    updateTimer = setInterval(seekUpdate, 1000);
 
     document.getElementById("play").className = "bi bi-pause-fill";
     document.getElementById(ID).className = "bi playlistPlay bi-play-circle-fill";
@@ -125,41 +148,43 @@ function pauseAndPlay(id){
 }
 
 
-function playNextSong(){
-    if (ID == 0){
+function playNextSong() {
+    // play next song in the list.
+    if (!isPlaying(curr_track)) toggle(player);
+    if (ID == 0) {
         ID = 1;
-    }else if (ID == 14){
+    } else if (ID == 14) {
         pause(ID);
         ID = 1;
-        music_playlist.shift(0);
-    }else {
+    } else {
         pause(ID);
         ID++;
-        music_playlist.shift(0);
     }
 
     newPlay(ID);
 }
 
 
-function playPreviousSong(){
-    if (ID == 0){
+function playPreviousSong() {
+    // play previous song in the list.
+    if (!isPlaying(curr_track)) toggle(player);
+    if (ID == 0) {
         ID = 14;
-    }else if (ID == 1){
+    } else if (ID == 1) {
         pause(ID);
         ID = 14;
-        music_playlist.shift(0);
-    }else {
+    } else {
         pause(ID);
         ID--;
-        music_playlist.shift(0);
     }
 
     newPlay(ID);
 }
 
 
-function changeImageTitleSubtitle(song_id){
+function changeImageTitleSubtitle(song_id) {
+    // Change song title, image and name of singer on the bar.
+
     document.getElementById("title").innerHTML = music_list[song_id][0];
     document.getElementById("poster_play").src = music_list[song_id][3];
     document.getElementById("16").textContent = music_list[song_id][1];
@@ -169,8 +194,63 @@ function changeImageTitleSubtitle(song_id){
 function isPlaying(song) { return !song.paused; }
 
 
-document.body.onkeyup = function(e){
-    if(e.keyCode == 32){
+document.body.onkeyup = function (e) {
+    // On spacebar press : pause/play
+
+    if (e.keyCode == 32) {
         barPlayButton();
     }
+}
+
+
+function resetValues() {
+    // Function to reset all values to their default
+
+    curr_time.textContent = "00:00";
+    total_duration.textContent = "00:00";
+    seek_slider.value = 0;
+}
+
+
+function seekTo() {
+    // Set the current track position to the calculated seek position
+
+    seekto = curr_track.duration * (seek_slider.value / 100);
+    curr_track.currentTime = seekto;
+}
+
+
+function setVolume() {
+    // Set the volume according to the percentage of the volume slider set
+    curr_track.volume = volume_slider.value / 100;
+}
+
+
+function seekUpdate() {
+    let seekPosition = 0;
+
+    if (!isNaN(curr_track.duration)) {
+        seekPosition = curr_track.currentTime * (100 / curr_track.duration);
+        seek_slider.value = seekPosition;
+
+        // Time left and total duration
+        let currentMinutes = Math.floor(curr_track.currentTime / 60);
+        let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
+        let durationMinutes = Math.floor(curr_track.duration / 60);
+        let durationSeconds = Math.floor(curr_track.duration - durationMinutes * 60);
+
+        // Adding zero's to time
+        if (currentSeconds < 10) { currentSeconds = "0" + currentSeconds; }
+        if (durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
+        if (currentMinutes < 10) { currentMinutes = "0" + currentMinutes; }
+        if (durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
+
+        // Update duration
+        curr_time.textContent = currentMinutes + ":" + currentSeconds;
+        total_duration.textContent = durationMinutes + ":" + durationSeconds;
+    }
+}
+
+function toggle(player) {
+    player.classList.toggle("paused");
 }

@@ -233,11 +233,12 @@
 
 
         <div class="play">
-            <div class="wave">
-                <div class="wave1"></div>
-                <div class="wave1"></div>
-                <div class="wave1"></div>
-            </div>
+            <div class="now playing" id="music">
+                <span class="bar n1">A</span>
+                <span class="bar n2">B</span>
+                <span class="bar n3">c</span>
+                <span class="bar n4">D</span>
+                </div>
             <div class="ABC">
               <img src="images/1.jpeg" class="ims" id="poster_play">
               <h5 class="title" id="title">Legend</h5>
@@ -248,19 +249,17 @@
                 <i class="bi bi-play-fill" id="play" onclick="barPlayButton();"></i>
                 <i class="bi bi-skip-end-fill" id="next" onclick="playNextSong();"></i>
             </div>
-            <span id="currentStart">0:00</span>
-            <div class="bar">
-               <input type="range" id="seek" min="0" value="0" max="100"> 
-                <div class="bar2" id="bar2"></div>
-                <div class="dot"></div>
-            </div>
-            <span id="currentEnd">0:00</span>
 
-            <div class="vol">
-                <i class="bi bi-volume-down-fill"></i>
-                <input type="range" id="vol" min="0" value="30" max="100">
-                <div class="vol_bar"></div>
-                <div class="dot" id="vol_dot"></div>
+            <div class="slider_container">
+            <div class="current-time">00:00</div>
+            <input type="range" min="1" max="100"
+                value="0" class="seek_slider" onchange="seekTo()">
+            <div class="total-duration">00:00</div>
+            </div>
+            <div class="slider_container">
+            <i class="bi bi-volume-down-fill"></i>
+            <input type="range" min="1" max="100"
+                value="99" class="volume_slider" onchange="setVolume()">
             </div>
         </div>
     </header>
