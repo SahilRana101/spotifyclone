@@ -254,3 +254,8 @@ function seekUpdate() {
 function toggle(player) {
     player.classList.toggle("paused");
 }
+
+curr_track.addEventListener('ended', function () {
+    this.currentTime = 0;
+    this.play();
+}, false);
