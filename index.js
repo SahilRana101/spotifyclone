@@ -44,12 +44,11 @@ function barPlayButton() {
         if (isPlaying(curr_track)) {
             pause(ID);
             toggle(player);
-            document.getElementById("play").className = "bi bi-play-fill";
-            // incomplete
         }
         else {
             curr_track.play();
             toggle(player);
+            count1 = 0;
             document.getElementById(ID).className = "bi playlistPlay bi-pause-circle-fill";
             document.getElementById("play").className = "bi bi-pause-fill";
             if (ID == 2) {
@@ -88,7 +87,6 @@ function playTheSong(id) {
         if (ID == 0 || !isPlaying(curr_track)) {
             toggle(player);
             newPlay(id);
-            count1 = 0;
         }
         else pauseAndPlay(id);
     }
@@ -115,6 +113,7 @@ function newPlay(id) {
     curr_track.src = music_list[id][2];
     curr_track.load();
     curr_track.play();
+    count1 = 0;
     updateTimer = setInterval(seekUpdate, 1000);
     document.getElementById(id).className = "bi playlistPlay bi-pause-circle-fill";
     document.getElementById("play").className = "bi bi-pause-fill";
@@ -130,14 +129,12 @@ function pauseAndPlay(id) {
     clearInterval(updateTimer);
     resetValues();
     curr_track.pause();
-    document.getElementById("play").className = "bi bi-play-fill";
     console.log(music_list[id][2]);
     curr_track.src = music_list[id][2];
     curr_track.load();
     curr_track.play();
     updateTimer = setInterval(seekUpdate, 1000);
 
-    document.getElementById("play").className = "bi bi-pause-fill";
     document.getElementById(ID).className = "bi playlistPlay bi-play-circle-fill";
     document.getElementById(id).className = "bi playlistPlay bi-pause-circle-fill";
 
@@ -152,7 +149,7 @@ function playNextSong() {
     // play next song in the list.
     if (!isPlaying(curr_track)) toggle(player);
     if (ID == 0) {
-        ID = 1;
+        ID = 2;
     } else if (ID == 14) {
         pause(ID);
         ID = 1;
