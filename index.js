@@ -160,6 +160,7 @@ function playNextSong() {
         pause(ID);
         ID++;
     }
+    if (count1 == 1) count1 = 0;
 
     newPlay(ID);
 }
@@ -177,6 +178,7 @@ function playPreviousSong() {
         pause(ID);
         ID--;
     }
+    if (count1 == 1) count1 = 0;
 
     newPlay(ID);
 }
